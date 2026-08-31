@@ -1,0 +1,457 @@
+/* Athena Labs — Argus : hero
+   The painting runs full width and is never cropped; the interface is a thin
+   ruled plate laid over the sky the composition already leaves empty.
+   ------------------------------------------------------------------ */
+
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  color: #fff;
+  isolation: isolate;
+
+  /* the painting's own sky, sampled top to bottom, so the canvas the plate
+     sits in reads as a continuation of it rather than a backdrop */
+  background: linear-gradient(
+    180deg,
+    #1c5e89 0%,
+    #1e679a 20%,
+    #2671a3 40%,
+    #2475a8 60%,
+    #2e7bad 76%,
+    #2e7bad 100%
+  );
+
+  --rail-l: 5.5%;
+  --rail-r: 86%;
+  --bar-h: clamp(66px, 8.5vh, 96px);
+  --edge: clamp(18px, 2.7vw, 52px);
+  --gut: clamp(26px, 7.4vw, 148px);
+  --rule: rgba(255, 255, 255, 0.3);
+}
+
+/* whatever the fitted plate leaves at the sides is filled by the painting's
+   own outermost column, stretched sideways and blurred — so every margin
+   pixel carries the exact colour the canvas has at that height */
+.hero__edge {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  width: 28%;
+  background-image: url('../assets/hero.png');
+  background-repeat: no-repeat;
+  background-size: 8000% 100%;
+  filter: blur(14px);
+}
+
+.hero__edge--l {
+  left: 0;
+  background-position: left top;
+}
+
+.hero__edge--r {
+  right: 0;
+  background-position: right top;
+}
+
+/* the whole painting, never cropped: it scales to fit the viewport and sits
+   on the bottom edge, its sides dissolving into the matching sky */
+.hero__plate {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.hero__img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 3.5%,
+    #000 96.5%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 3.5%,
+    #000 96.5%,
+    transparent 100%
+  );
+}
+
+/* vertical rails + the small measure ticks on the left one ------------ */
+
+.hero__rules {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.rule {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--rule);
+}
+
+.rule--left { left: var(--rail-l); }
+.rule--right { left: var(--rail-r); }
+
+.ticks {
+  position: absolute;
+  left: var(--rail-l);
+  top: calc(var(--bar-h) + 74px);
+  display: grid;
+  gap: 26px;
+}
+
+.ticks i {
+  display: block;
+  width: 13px;
+  height: 1px;
+  margin-left: -6px;
+  background: var(--rule);
+}
+
+/* the frame holds one viewport of interface over the painting --------- */
+
+.hero__frame {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* top bar ------------------------------------------------------------- */
+
+.topbar {
+  flex: 0 0 var(--bar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--edge);
+  border-bottom: 1px solid var(--rule);
+}
+
+.topbar__mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  color: #fff;
+  transition: opacity 0.25s ease;
+}
+
+.topbar__mark svg {
+  width: 34px;
+  height: 34px;
+}
+
+.topbar__mark:hover { opacity: 0.7; }
+
+.topbar__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 12px 12px 20px;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: background 0.25s ease;
+}
+
+.topbar__cta:hover { background: var(--sky-deep); }
+
+/* boxed arrow --------------------------------------------------------- */
+
+.arrowbox {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.arrowbox svg {
+  width: 13px;
+  height: 13px;
+}
+
+a:hover > .arrowbox {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: #fff;
+}
+
+/* left rail menu ------------------------------------------------------ */
+
+.menu {
+  position: absolute;
+  z-index: 4;
+  left: var(--edge);
+  top: calc(var(--bar-h) + 34px);
+}
+
+.menu__toggle {
+  display: grid;
+  grid-template-columns: repeat(2, 4px);
+  gap: 4px;
+  padding: 6px;
+  margin-left: -6px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.menu__toggle span {
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  transition: opacity 0.25s ease;
+}
+
+.menu__toggle:hover span { opacity: 0.65; }
+.menu__toggle[aria-expanded='true'] span:nth-child(2),
+.menu__toggle[aria-expanded='true'] span:nth-child(3) { opacity: 0.35; }
+
+.menu__panel {
+  display: grid;
+  gap: 2px;
+  width: max-content;
+  margin-top: 18px;
+  margin-left: -6px;
+  padding: 16px 26px 16px 20px;
+  background: var(--ink);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+.menu__panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.menu__panel a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 5px 0;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.menu__panel a:hover { opacity: 1; }
+
+/* copy ---------------------------------------------------------------- */
+
+.hero__copy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(24px, 5vh, 64px) var(--edge) clamp(24px, 5vh, 64px) var(--gut);
+}
+
+.hero__title,
+.hero__sub,
+.hero__copy .cta {
+  animation: heroRise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.hero__sub { animation-delay: 0.1s; }
+.hero__copy .cta { animation-delay: 0.2s; }
+
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+
+.hero__title {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5.1vw, 88px);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+
+.hero__sub {
+  margin-top: clamp(20px, 3.4vh, 40px);
+  font-family: var(--serif);
+  font-size: clamp(19px, 1.85vw, 32px);
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.94);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+  align-self: flex-start;
+  margin-top: clamp(26px, 4.6vh, 56px);
+  padding: 13px 13px 13px 24px;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: background 0.25s ease;
+}
+
+.cta:hover { background: var(--sky-deep); }
+
+/* foot band ------------------------------------------------------------ */
+
+.hero__foot {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(9, 42, 68, 0) 0%,
+    rgba(9, 42, 68, 0.38) 46%,
+    rgba(9, 42, 68, 0.58) 100%
+  );
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(24px, 7vw, 128px);
+  padding: clamp(28px, 5vh, 58px) var(--edge) clamp(32px, 6vh, 66px) var(--gut);
+  border-top: 1px solid var(--rule);
+}
+
+/* crosshairs where the foot rule meets the rails */
+.hero__foot::before,
+.hero__foot::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  width: 11px;
+  height: 11px;
+  background:
+    linear-gradient(currentColor, currentColor) center / 11px 1px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1px 11px no-repeat;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.hero__foot::before { left: calc(var(--rail-l) - 5px); }
+.hero__foot::after { left: calc(var(--rail-r) - 5px); }
+
+.chip {
+  flex: none;
+  padding: 7px 13px;
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(2px);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hero__note {
+  max-width: 62ch;
+  font-size: clamp(14px, 1.05vw, 16.5px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* responsive ----------------------------------------------------------- */
+
+@media (max-width: 1100px) {
+  .hero { --gut: clamp(26px, 9vw, 92px); }
+}
+
+@media (max-width: 860px) {
+  /* the painting keeps its full frame; the interface moves above it */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    --rail-l: 0;
+    --rail-r: 100%;
+  }
+
+  .hero__plate {
+    position: static;
+    order: 2;
+  }
+
+  .hero__img {
+    width: 100%;
+    max-height: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .hero__rules,
+  .hero__edge { display: none; }
+
+  .hero__frame {
+    position: static;
+    order: 1;
+  }
+
+  .menu {
+    position: static;
+    order: 3;
+    padding: 0 var(--edge) 22px;
+  }
+
+  .menu__toggle { display: none; }
+
+  .menu__panel {
+    display: flex;
+    flex-wrap: wrap;
+    width: auto;
+    gap: 6px 22px;
+    margin: 0;
+    padding: 0;
+    background: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .hero__copy {
+    padding: clamp(34px, 9vw, 60px) var(--edge);
+  }
+
+  .hero__title { font-size: clamp(32px, 8.6vw, 54px); }
+
+  .hero__foot {
+    background: none;
+    flex-direction: column;
+    gap: 16px;
+    padding: clamp(22px, 6vw, 34px) var(--edge) clamp(26px, 7vw, 38px);
+  }
+
+  .hero__foot::before,
+  .hero__foot::after { display: none; }
+
+  .chip { align-self: flex-start; }
+}
