@@ -151,18 +151,19 @@
 .topbar__mark {
   display: grid;
   place-items: center;
-  width: 38px;
-  height: 38px;
-  color: #fff;
+  height: 100%;
+  padding: 12px 0;
   transition: opacity 0.25s ease;
 }
 
-.topbar__mark svg {
-  width: 34px;
-  height: 34px;
+.topbar__mark img {
+  height: 100%;
+  width: auto;
+  max-height: 48px;
+  object-fit: contain;
 }
 
-.topbar__mark:hover { opacity: 0.7; }
+.topbar__mark:hover { opacity: 0.72; }
 
 .topbar__cta {
   display: inline-flex;
