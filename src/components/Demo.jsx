@@ -30,6 +30,20 @@ const REEL = [
     caption: 'Demo footage — vehicle & plate detection',
     src: '/media/demo-traffic.mp4',
   },
+  {
+    id: 'dooh',
+    tab: 'Audience & attention',
+    title: (
+      <>
+        It doesn&rsquo;t just watch.
+        <br />
+        It counts who&rsquo;s looking.
+      </>
+    ),
+    lede: 'Footfall and dwell time, gaze-scored per person as they pass — the same signal digital signage and retail analytics run on.',
+    caption: 'Demo footage — audience & attention analytics',
+    src: '/media/demo-dooh.mp4',
+  },
 ]
 
 export default function Demo() {
