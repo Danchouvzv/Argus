@@ -10,6 +10,11 @@
   --sky-top: #1b5f8e;
   --sky-deep: #164e75;
 
+  /* the flat poster-blue the halftone illustrations are drawn on — brighter
+     and more saturated than the painted hero sky, sampled the same way */
+  --sky-2: #0474b4;
+  --sky-2-deep: #035c92;
+
   --line-lt: rgba(255, 255, 255, 0.22);
 
   --serif: 'Playfair Display', 'Times New Roman', Georgia, serif;
@@ -53,7 +58,9 @@ a {
   text-decoration: none;
 }
 
-h1 {
+h1,
+h2,
+h3 {
   margin: 0;
   font-weight: 400;
 }

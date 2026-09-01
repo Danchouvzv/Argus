@@ -1,0 +1,115 @@
+/* Athena Labs — Argus : explainer
+   A flat halftone illustration, never cropped (the section holds the
+   image's own 4:3 aspect), with two paper notes pinned on top of it —
+   the same staircase composition the Pear reference uses.
+   ------------------------------------------------------------------ */
+
+.explainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--sky-2);
+  color: var(--ink);
+
+  --edge: clamp(20px, 4vw, 56px);
+}
+
+.explainer__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.explainer__card {
+  position: absolute;
+  z-index: 1;
+  width: 38%;
+  padding: clamp(26px, 3.2vw, 50px) clamp(24px, 3vw, 44px);
+  background: var(--paper);
+}
+
+.explainer__card--main {
+  left: 0;
+  top: 13%;
+}
+
+.explainer__card--detail {
+  left: 24%;
+  top: 57%;
+  width: 35%;
+}
+
+.explainer__eyebrow {
+  display: block;
+  margin-bottom: clamp(16px, 2vw, 22px);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(14, 14, 14, 0.55);
+}
+
+.explainer__title {
+  font-family: var(--serif);
+  font-size: clamp(24px, 2.5vw, 42px);
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+}
+
+.explainer__lede {
+  margin-top: clamp(18px, 2.4vw, 26px);
+  font-size: clamp(13.5px, 1vw, 15.5px);
+  line-height: 1.6;
+  color: rgba(14, 14, 14, 0.72);
+}
+
+.explainer__subtitle {
+  font-family: var(--serif);
+  font-size: clamp(19px, 1.7vw, 27px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.explainer__body {
+  margin-top: clamp(14px, 2vw, 20px);
+  font-size: clamp(13px, 0.95vw, 14.5px);
+  line-height: 1.62;
+  color: rgba(14, 14, 14, 0.72);
+}
+
+/* responsive ----------------------------------------------------------- */
+
+@media (max-width: 1100px) {
+  .explainer__card--main { width: 44%; }
+  .explainer__card--detail { width: 40%; left: 22%; }
+}
+
+@media (max-width: 860px) {
+  .explainer {
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .explainer__bg {
+    position: static;
+    order: 2;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .explainer__card {
+    position: static;
+    width: 100%;
+    padding: clamp(30px, 8vw, 44px) var(--edge);
+  }
+
+  .explainer__card--main { order: 1; }
+  .explainer__card--detail { order: 3; }
+}
