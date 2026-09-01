@@ -20,24 +20,18 @@ export default function Explainer() {
           to one box.
         </h2>
         <p className="explainer__lede">
-          Argus doesn&rsquo;t ask you to touch a single lens. It listens to the
-          RTSP or ONVIF stream your cameras already speak, and starts scoring
-          frames from the very first connection.
+          Argus doesn&rsquo;t ask you to touch a single lens — it listens to
+          the RTSP or ONVIF stream your cameras already speak.
         </p>
       </div>
 
       <div className="explainer__card explainer__card--detail">
         <h3 className="explainer__subtitle">Inference stays on the box</h3>
         <p className="explainer__body">
-          Detection, tracking and rule evaluation all run on the Jetson&rsquo;s
-          own GPU, frame by frame, in real time. Nothing is queued or shipped
-          upstream for a verdict — the box decides on the spot, in
-          milliseconds, and only the event crosses your firewall: a type, a
-          zone, a timestamp, and — if you ask for one — a single frame of
-          proof. Because the model lives on the hardware, Argus keeps working
-          the moment your uplink doesn&rsquo;t. Pull the cable and it keeps
-          watching, keeps writing to local storage, keeps triggering the
-          siren.
+          Detection and rule evaluation run on the Jetson&rsquo;s own GPU,
+          frame by frame. Nothing is queued or shipped upstream for a
+          verdict — only the event crosses your firewall, and the box keeps
+          working the moment your uplink doesn&rsquo;t.
         </p>
       </div>
     </section>

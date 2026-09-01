@@ -1,0 +1,39 @@
+/* Athena Labs — Argus : seam
+   The join between hero and explainer reads as a strip of film stock —
+   two rows of sprocket holes over a blend from the painted hero blue
+   into the poster blue the halftone art sits on. A small, on-brand nod
+   instead of a bare colour cut.
+   ------------------------------------------------------------------ */
+
+.seam {
+  position: relative;
+  height: clamp(34px, 4.2vw, 60px);
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-2) 100%);
+  overflow: hidden;
+}
+
+.seam__perf {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background-image: radial-gradient(circle, var(--paper) 2px, transparent 2.4px);
+  background-size: 24px 6px;
+  background-repeat: repeat-x;
+  background-position: 12px center;
+  opacity: 0.55;
+}
+
+.seam__perf--top {
+  top: clamp(7px, 1vw, 12px);
+}
+
+.seam__perf--bottom {
+  bottom: clamp(7px, 1vw, 12px);
+}
+
+@media (max-width: 640px) {
+  .seam__perf {
+    background-size: 18px 6px;
+  }
+}

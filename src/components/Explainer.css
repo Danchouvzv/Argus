@@ -1,18 +1,25 @@
 /* Athena Labs — Argus : explainer
-   A flat halftone illustration, never cropped (the section holds the
-   image's own 4:3 aspect), with two paper notes pinned on top of it —
-   the same staircase composition the Pear reference uses.
+   A flat halftone illustration, never cropped, held to one laptop screen
+   the way the hero is: the section is 100svh and the art letterboxes
+   inside it. Because the picture's own backdrop is the same flat blue as
+   the section, the letterbox bars vanish into it — there's no seam to
+   hide. Two paper notes pin on top in the same staircase the Pear
+   reference uses.
    ------------------------------------------------------------------ */
 
 .explainer {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100svh;
+  min-height: 560px;
   overflow: hidden;
   background: var(--sky-2);
   color: var(--ink);
 
   --edge: clamp(20px, 4vw, 56px);
+  /* the point the two cards split the width at — driving both card--main's
+     width and card--detail's left edge keeps them from ever overlapping */
+  --split: 34%;
 }
 
 .explainer__bg {
@@ -21,31 +28,31 @@
   z-index: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .explainer__card {
   position: absolute;
   z-index: 1;
-  width: 38%;
-  padding: clamp(26px, 3.2vw, 50px) clamp(24px, 3vw, 44px);
+  padding: clamp(18px, 1.6vw + 1.6vh, 46px) clamp(18px, 1.4vw + 1.2vh, 40px);
   background: var(--paper);
 }
 
 .explainer__card--main {
   left: 0;
-  top: 13%;
+  top: 9%;
+  width: var(--split);
 }
 
 .explainer__card--detail {
-  left: 24%;
-  top: 57%;
-  width: 35%;
+  left: var(--split);
+  top: 54%;
+  width: 32%;
 }
 
 .explainer__eyebrow {
   display: block;
-  margin-bottom: clamp(16px, 2vw, 22px);
+  margin-bottom: clamp(10px, 0.8vw + 0.6vh, 20px);
   font-family: var(--mono);
   font-size: 10.5px;
   font-weight: 500;
@@ -56,42 +63,43 @@
 
 .explainer__title {
   font-family: var(--serif);
-  font-size: clamp(24px, 2.5vw, 42px);
+  font-size: clamp(20px, 1.3vw + 1.3vh, 38px);
   line-height: 1.16;
   letter-spacing: -0.01em;
 }
 
 .explainer__lede {
-  margin-top: clamp(18px, 2.4vw, 26px);
-  font-size: clamp(13.5px, 1vw, 15.5px);
-  line-height: 1.6;
+  margin-top: clamp(12px, 0.8vw + 0.8vh, 24px);
+  font-size: clamp(12.5px, 0.4vw + 0.5vh, 15px);
+  line-height: 1.55;
   color: rgba(14, 14, 14, 0.72);
 }
 
 .explainer__subtitle {
   font-family: var(--serif);
-  font-size: clamp(19px, 1.7vw, 27px);
+  font-size: clamp(16px, 0.9vw + 0.9vh, 25px);
   line-height: 1.2;
   letter-spacing: -0.01em;
 }
 
 .explainer__body {
-  margin-top: clamp(14px, 2vw, 20px);
-  font-size: clamp(13px, 0.95vw, 14.5px);
-  line-height: 1.62;
+  margin-top: clamp(10px, 0.7vw + 0.7vh, 18px);
+  font-size: clamp(12px, 0.3vw + 0.45vh, 14px);
+  line-height: 1.58;
   color: rgba(14, 14, 14, 0.72);
 }
 
 /* responsive ----------------------------------------------------------- */
 
 @media (max-width: 1100px) {
-  .explainer__card--main { width: 44%; }
-  .explainer__card--detail { width: 40%; left: 22%; }
+  .explainer { --split: 42%; }
+  .explainer__card--detail { width: 36%; }
 }
 
 @media (max-width: 860px) {
   .explainer {
-    aspect-ratio: auto;
+    height: auto;
+    min-height: 0;
     display: flex;
     flex-direction: column;
   }
