@@ -40,6 +40,35 @@
   color: rgba(255, 255, 255, 0.72);
 }
 
+.demo__tabs {
+  display: flex;
+  gap: clamp(20px, 2.4vw, 36px);
+}
+
+.demo__tab {
+  padding: 0 0 8px;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.demo__tab:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.demo__tab.is-active {
+  color: #fff;
+  border-color: #fff;
+}
+
 .demo__title {
   font-family: var(--serif);
   font-size: clamp(26px, 1.4vw + 1.8vh, 46px);
@@ -59,7 +88,7 @@
   /* driving height off width (not a separate max-height) keeps the box a
      true 16:9 always — sizing it from the vertical budget left over after
      the copy and caption is what avoids pillarboxing on short screens */
-  width: min(860px, 64vw, calc((100svh - 300px) * 16 / 9));
+  width: min(860px, 64vw, calc((100svh - 350px) * 16 / 9));
   aspect-ratio: 16 / 9;
   background: var(--ink);
   padding: clamp(5px, 0.6vw, 9px);
