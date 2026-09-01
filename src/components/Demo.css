@@ -1,0 +1,156 @@
+/* Athena Labs — Argus : demo
+   A single screen: the halftone cloud sits behind the headline as
+   atmosphere (it's backdrop, not the subject, so unlike the hero and the
+   explainer it's allowed to crop under `cover`), and the real PPE demo
+   plays inside a monitor bezel with viewfinder brackets at the corners —
+   the same framing device the detection boxes in the footage use.
+   ------------------------------------------------------------------ */
+
+.demo {
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  background: var(--sky-2) url('../assets/demo-bg.jpg') center 4% / cover no-repeat;
+  color: #fff;
+
+  --edge: clamp(20px, 5vw, 64px);
+}
+
+.demo__frame {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 2.2vh, 26px);
+  padding: clamp(28px, 4vh, 56px) var(--edge);
+  text-align: center;
+}
+
+.demo__eyebrow {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.demo__title {
+  font-family: var(--serif);
+  font-size: clamp(26px, 1.4vw + 1.8vh, 46px);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+}
+
+.demo__lede {
+  max-width: 58ch;
+  font-size: clamp(13px, 0.4vw + 0.7vh, 16px);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.demo__screen {
+  position: relative;
+  /* driving height off width (not a separate max-height) keeps the box a
+     true 16:9 always — sizing it from the vertical budget left over after
+     the copy and caption is what avoids pillarboxing on short screens */
+  width: min(860px, 64vw, calc((100svh - 300px) * 16 / 9));
+  aspect-ratio: 16 / 9;
+  background: var(--ink);
+  padding: clamp(5px, 0.6vw, 9px);
+}
+
+.demo__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.demo__bracket {
+  position: absolute;
+  width: clamp(14px, 1.4vw, 24px);
+  height: clamp(14px, 1.4vw, 24px);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+}
+
+.demo__bracket--tl {
+  top: -8px;
+  left: -8px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.demo__bracket--tr {
+  top: -8px;
+  right: -8px;
+  border-left: 0;
+  border-bottom: 0;
+}
+
+.demo__bracket--bl {
+  bottom: -8px;
+  left: -8px;
+  border-right: 0;
+  border-top: 0;
+}
+
+.demo__bracket--br {
+  bottom: -8px;
+  right: -8px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.demo__caption {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.demo__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  animation: demoPulse 2.4s infinite;
+}
+
+@keyframes demoPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.55);
+  }
+  70% {
+    box-shadow: 0 0 0 9px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+/* responsive ------------------------------------------------------------ */
+
+@media (max-width: 860px) {
+  .demo {
+    height: auto;
+    min-height: 0;
+  }
+
+  .demo__screen {
+    width: 100%;
+    max-height: none;
+  }
+}

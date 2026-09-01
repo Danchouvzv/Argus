@@ -5,6 +5,7 @@ import ArrowBox from './ArrowBox.jsx'
 const LINKS = [
   { label: 'Product', href: '#product' },
   { label: 'How it works', href: '#how' },
+  { label: 'Demo', href: '#demo' },
   { label: 'Modules', href: '#modules' },
   { label: 'Hardware', href: '#hardware' },
   { label: 'Questions', href: '#faq' },
